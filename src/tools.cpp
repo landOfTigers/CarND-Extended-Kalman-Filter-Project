@@ -6,6 +6,7 @@ using Eigen::MatrixXd;
 using std::vector;
 using std::cout;
 using std::endl;
+using std::atan;
 
 Tools::Tools() {}
 
@@ -53,4 +54,23 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
     py*(vx*py - vy*px)/c3, px*(px*vy - py*vx)/c3, px/c2, py/c2;
 
   return jacobian;
+}
+
+VectorXd Tools::Cartesian2Polar(const VectorXd& measurement) {
+
+  float px = measurement(0);
+  float py = measurement(1);
+  float vx = measurement(2);
+  float vy = measurement(3);
+  
+  VectorXd polar(4);
+  float c = sqrt(px*px+py*py);
+  if (fabs(c) < 0.0001 || fabs(px) < 0.0001) {
+    cout << "Cartesian2Polar() error: Division by zero!" << endl;
+    return polar;
+  }
+  
+  polar << c, atan(py/px), (px*vx+py*vy)/c;
+
+  return polar;
 }
