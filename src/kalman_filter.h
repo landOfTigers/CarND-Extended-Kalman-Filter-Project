@@ -34,6 +34,8 @@ class KalmanFilter {
   
   void updateQ(const float dt);
   
+  void printState();
+  
   /**
    * Prediction Predicts the state and the state covariance
    * using the process model

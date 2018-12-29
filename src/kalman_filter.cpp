@@ -1,8 +1,11 @@
 #include "kalman_filter.h"
+#include <iostream>
 #include <cmath>
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
+using std::cout;
+using std::endl;
 
 KalmanFilter::KalmanFilter() {}
 
@@ -52,6 +55,11 @@ void KalmanFilter::setInitialState(const VectorXd &measurement) {
 void KalmanFilter::updateF(const float dt) {
   F_(0, 2) = dt;
   F_(1, 3) = dt;
+}
+
+void KalmanFilter::printState() {
+  cout << "x_ = " << x_ << endl;
+  cout << "P_ = " << P_ << endl;
 }
 
 void KalmanFilter::updateQ(const float dt) {
