@@ -12,6 +12,9 @@ Setup test environment for Google Test and run untit tests from test folder:
 ./setup-test-environment.sh
 ./run-tests.sh
 ```
+## Implementation notes:
+* There are unit tests for the CalculateRMSE() member function of the Tools class. Mostly because I was curious about tyring out a unit testing framework for C++.
+* To reach RMSE values as low as the ones specified in the rubric, the initial uncertainty of the velocities had to be set to a very high value (e.g. 100,000) in the state covariance matrix (FusionEKF.cpp, lines 39-40).
 
 ## Introduction
 In this project you will utilize a kalman filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower than the tolerance outlined in the project rubric. 
