@@ -10,7 +10,7 @@ Build and run the extended Kalman filter:
 Setup test environment for Google Test and run untit tests from test folder:
 ```
 ./setup-test-environment.sh
-./run-tests.sh./
+./run-tests.sh
 ```
 
 ## Introduction
