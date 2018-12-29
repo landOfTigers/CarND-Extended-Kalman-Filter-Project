@@ -2,17 +2,14 @@
 #define KALMAN_FILTER_H_
 
 #include "Eigen/Dense"
+#include "tools.h"
 
 class KalmanFilter {
+ private:
+  Tools tools;
+  void calculateNewEstimate(const Eigen::VectorXd &y); 
  public:
-  /**
-   * Constructor
-   */
   KalmanFilter();
-
-  /**
-   * Destructor
-   */
   virtual ~KalmanFilter();
 
   /**
@@ -30,7 +27,6 @@ class KalmanFilter {
   /**
    * Prediction Predicts the state and the state covariance
    * using the process model
-   * @param delta_T Time between k and k+1 in s
    */
   void Predict();
 
