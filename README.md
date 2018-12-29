@@ -3,7 +3,9 @@ Self-Driving Car Engineer Nanodegree Program
 
 ## Quick start:
 Build and run the extended Kalman filter:
-```./build-run.sh```
+```
+./build-run.sh
+```
 
 Setup test environment for Google Test and run untit tests from test folder:
 ```
