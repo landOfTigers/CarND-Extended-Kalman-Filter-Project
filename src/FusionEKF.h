@@ -10,10 +10,6 @@
 #include "tools.h"
 
 class FusionEKF {
- private:
-  // acceleration noise components
-  const float noise_ax_ = 9.0;
-  const float noise_ay_ = 9.0;
  public:
   /**
    * Constructor.

@@ -90,20 +90,12 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
   // dt - expressed in seconds
   float dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;
   previous_timestamp_ = measurement_pack.timestamp_;
-  
-  float dt_2 = dt * dt;
-  float dt_3 = dt_2 * dt;
-  float dt_4 = dt_3 * dt;
 
   // Modify the F matrix so that the time is integrated
-  ekf_.F_(0, 2) = dt;
-  ekf_.F_(1, 3) = dt;
+  ekf_.updateF(dt);
 
   // update the process covariance matrix
-  ekf_.Q_ <<  dt_4/4*noise_ax_, 0, dt_3/2*noise_ax_, 0,
-              0, dt_4/4*noise_ay_, 0, dt_3/2*noise_ay_,
-              dt_3/2*noise_ax_, 0, dt_2*noise_ax_, 0,
-              0, dt_3/2*noise_ay_, 0, dt_2*noise_ay_;
+  ekf_.updateQ(dt);
 
   ekf_.Predict();
 

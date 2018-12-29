@@ -49,6 +49,21 @@ void KalmanFilter::setInitialState(const VectorXd &measurement) {
         0;
 }
 
+void KalmanFilter::updateF(const float dt) {
+  F_(0, 2) = dt;
+  F_(1, 3) = dt;
+}
+
+void KalmanFilter::updateQ(const float dt) {
+  float dt_2 = dt * dt;
+  float dt_3 = dt_2 * dt;
+  float dt_4 = dt_3 * dt;
+  Q_ <<  dt_4/4*noise_ax_, 0, dt_3/2*noise_ax_, 0,
+         0, dt_4/4*noise_ay_, 0, dt_3/2*noise_ay_,
+         dt_3/2*noise_ax_, 0, dt_2*noise_ax_, 0,
+         0, dt_3/2*noise_ay_, 0, dt_2*noise_ay_;
+}
+
 void KalmanFilter::calculateNewEstimate(const VectorXd &y) {
   MatrixXd Ht = H_.transpose();
   MatrixXd S = H_ * P_ * Ht + R_;

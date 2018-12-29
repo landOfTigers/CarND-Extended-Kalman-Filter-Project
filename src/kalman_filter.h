@@ -8,6 +8,9 @@ class KalmanFilter {
  private:
   Tools tools;
   void calculateNewEstimate(const Eigen::VectorXd &y); 
+  // acceleration noise components
+  const float noise_ax_ = 9.0;
+  const float noise_ay_ = 9.0;
  public:
   KalmanFilter();
   virtual ~KalmanFilter();
@@ -26,6 +29,10 @@ class KalmanFilter {
 
   // sets the state from the first measurement
   void setInitialState(const Eigen::VectorXd &measurement);
+  
+  void updateF(const float dt);
+  
+  void updateQ(const float dt);
   
   /**
    * Prediction Predicts the state and the state covariance
