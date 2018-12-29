@@ -76,8 +76,16 @@ void KalmanFilter::setH_(const MatrixXd &H) {
   H_ = H;
 }
 
+void KalmanFilter::setJacobianFromState() {
+  H_ = tools.CalculateJacobian(x_);
+}
+
 void KalmanFilter::setR_(const MatrixXd &R) {
   R_ = R;
+}
+
+VectorXd KalmanFilter::getState() {
+  return x_;
 }
 
 void KalmanFilter::calculateNewEstimate(const VectorXd &y) {

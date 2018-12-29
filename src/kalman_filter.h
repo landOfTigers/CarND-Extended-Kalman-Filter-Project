@@ -6,6 +6,8 @@
 
 class KalmanFilter {
  private:
+  // state vector
+  Eigen::VectorXd x_;
   // state covariance matrix
   Eigen::MatrixXd P_;
   // state transition matrix
@@ -48,6 +50,10 @@ class KalmanFilter {
   
   void setR_(const Eigen::MatrixXd &R);
   
+  void setJacobianFromState();
+  
+  Eigen::VectorXd getState();
+  
   void printState();
 
   /**
@@ -67,9 +73,6 @@ class KalmanFilter {
    * @param z The measurement at k+1
    */
   void UpdateEKF(const Eigen::VectorXd &z);
-  
-  // state vector
-  Eigen::VectorXd x_;
 };
 
 #endif // KALMAN_FILTER_H_
