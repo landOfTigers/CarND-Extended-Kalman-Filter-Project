@@ -1,5 +1,6 @@
 #include "kalman_filter.h"
 #include "tools.h"
+#include <cmath>
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
@@ -55,12 +56,18 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   /**
    * TODO: update the state by using Extended Kalman Filter equations
    */
-  Tools tools;
+  Tools tools;   // TODO: private member variable
   H_ = tools.CalculateJacobian(x_);
-  VectorXd z_pred = tools.Cartesian2Polar(measurement_pack.raw_measurements_);
-  
-  // TODO: refactor duplication into function
+//   VectorXd z_pred = tools.Cartesian2Polar(measurement_pack.raw_measurements_);
+  VectorXd z_pred = tools.Cartesian2Polar(x_);
   VectorXd y = z - z_pred;
+  if(y[1] < -M_PI) {
+    y[1] += 2*M_PI;
+  }
+  if(y[1] > M_PI) {
+    y[1] -= 2*M_PI;
+  }
+  // TODO: refactor duplication into function
   MatrixXd Ht = H_.transpose();
   MatrixXd S = H_ * P_ * Ht + R_;
   MatrixXd Si = S.inverse();
