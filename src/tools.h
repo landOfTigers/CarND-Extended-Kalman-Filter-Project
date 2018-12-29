@@ -6,17 +6,14 @@
 
 class Tools {
  public:
-  Tools();
-  virtual ~Tools();
-
-  Eigen::VectorXd CalculateRMSE(const std::vector<Eigen::VectorXd> &estimations, 
+  static Eigen::VectorXd CalculateRMSE(const std::vector<Eigen::VectorXd> &estimations, 
                                 const std::vector<Eigen::VectorXd> &ground_truth);
 
-  Eigen::MatrixXd CalculateJacobian(const Eigen::VectorXd& x_state);
+  static Eigen::MatrixXd CalculateJacobian(const Eigen::VectorXd& x_state);
   
-  Eigen::VectorXd Cartesian2Polar(const Eigen::VectorXd& x_state);
+  static Eigen::VectorXd Cartesian2Polar(const Eigen::VectorXd& x_state);
   
-  Eigen::VectorXd Polar2Cartesian(const Eigen::VectorXd& measurement);
+  static Eigen::VectorXd Polar2Cartesian(const Eigen::VectorXd& measurement);
 };
 
 #endif  // TOOLS_H_

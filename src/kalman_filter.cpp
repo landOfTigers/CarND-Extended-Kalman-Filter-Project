@@ -34,7 +34,7 @@ void KalmanFilter::Update(const VectorXd &z) {
 }
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
-  VectorXd z_pred = tools.Cartesian2Polar(x_);
+  VectorXd z_pred = Tools::Cartesian2Polar(x_);
   VectorXd y = z - z_pred;
   while(y[1] < -M_PI) {
     y[1] += 2*M_PI;
@@ -77,7 +77,7 @@ void KalmanFilter::setH_(const MatrixXd &H) {
 }
 
 void KalmanFilter::setJacobianFromState() {
-  H_ = tools.CalculateJacobian(x_);
+  H_ = Tools::CalculateJacobian(x_);
 }
 
 void KalmanFilter::setR_(const MatrixXd &R) {

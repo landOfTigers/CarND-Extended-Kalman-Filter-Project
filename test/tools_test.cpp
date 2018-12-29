@@ -1,8 +1,6 @@
 #include "../src/tools.cpp"
 #include <gtest/gtest.h>
  
-Tools tools;
-
 TEST(CalculateRMSETest, CorrectCalculation) { 
   vector<VectorXd> estimations;  
   VectorXd estimate(4);
@@ -21,7 +19,7 @@ TEST(CalculateRMSETest, CorrectCalculation) {
   VectorXd rmseExpected(4);
   rmseExpected << 0.36055512754, 0.4472135955, 0.53851648071, 0.63245553203;
 
-  VectorXd rmseActual = tools.CalculateRMSE(estimations, ground_truth);
+  VectorXd rmseActual = Tools::CalculateRMSE(estimations, ground_truth);
   
   for (unsigned int i=0; i < estimations.size(); i++) {
     ASSERT_FLOAT_EQ(rmseExpected[i], rmseActual[i]);
@@ -44,7 +42,7 @@ TEST(CalculateRMSETest, UnequalLengths) {
   VectorXd rmseEmpected(4);
   rmseEmpected << 0,0,0,0;
   
-  VectorXd rmseActual = tools.CalculateRMSE(estimations, ground_truth);
+  VectorXd rmseActual = Tools::CalculateRMSE(estimations, ground_truth);
 
   ASSERT_EQ(rmseEmpected, rmseActual);
 }
@@ -60,7 +58,7 @@ TEST(CalculateRMSETest, OneHasZeroElements) {
   VectorXd rmseEmpected(4);
   rmseEmpected << 0,0,0,0;
   
-  VectorXd rmseActual = tools.CalculateRMSE(estimations, ground_truth);
+  VectorXd rmseActual = Tools::CalculateRMSE(estimations, ground_truth);
 
   ASSERT_EQ(rmseEmpected, rmseActual);
 }
