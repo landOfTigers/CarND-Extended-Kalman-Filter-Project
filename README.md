@@ -1,6 +1,17 @@
 # Extended Kalman Filter Project Starter Code
 Self-Driving Car Engineer Nanodegree Program
 
+## Quick start:
+Build and run the extended Kalman filter:
+```./build-run.sh```
+
+Setup test environment for Google Test and run untit tests from test folder:
+```
+./setup-test-environment.sh
+./run-tests.sh./
+```
+
+## Introduction
 In this project you will utilize a kalman filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower than the tolerance outlined in the project rubric. 
 
 This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
