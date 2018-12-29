@@ -1,12 +1,12 @@
 #include "tools.h"
 #include <iostream>
+#include <math.h> 
 
 using Eigen::VectorXd;
 using Eigen::MatrixXd;
 using std::vector;
 using std::cout;
 using std::endl;
-using std::atan;
 
 Tools::Tools() {}
 
@@ -56,21 +56,33 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   return jacobian;
 }
 
-VectorXd Tools::Cartesian2Polar(const VectorXd& measurement) {
+VectorXd Tools::Cartesian2Polar(const VectorXd& x_state) {
 
-  float px = measurement(0);
-  float py = measurement(1);
-  float vx = measurement(2);
-  float vy = measurement(3);
+  float px = x_state(0);
+  float py = x_state(1);
+  float vx = x_state(2);
+  float vy = x_state(3);
   
-  VectorXd polar(4);
+  VectorXd polar(3);
   float c = sqrt(px*px+py*py);
   if (fabs(c) < 0.0001 || fabs(px) < 0.0001) {
     cout << "Cartesian2Polar() error: Division by zero!" << endl;
     return polar;
   }
   
-  polar << c, atan(py/px), (px*vx+py*vy)/c;
+  polar << c, atan2(py, px), (px*vx+py*vy)/c;
 
   return polar;
+}
+
+VectorXd Tools::Polar2Cartesian(const VectorXd& measurement) {
+
+  float rho = measurement(0);
+  float phi = measurement(1);
+  
+  VectorXd cartesian(4);  
+  // velocity is set to zero because there's not enough information
+  cartesian << rho*cos(phi), rho*sin(phi), 0, 0;
+
+  return cartesian;
 }

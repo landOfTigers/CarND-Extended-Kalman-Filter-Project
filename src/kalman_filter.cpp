@@ -61,10 +61,10 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 //   VectorXd z_pred = tools.Cartesian2Polar(measurement_pack.raw_measurements_);
   VectorXd z_pred = tools.Cartesian2Polar(x_);
   VectorXd y = z - z_pred;
-  if(y[1] < -M_PI) {
+  while(y[1] < -M_PI) {
     y[1] += 2*M_PI;
   }
-  if(y[1] > M_PI) {
+  while(y[1] > M_PI) {
     y[1] -= 2*M_PI;
   }
   // TODO: refactor duplication into function

@@ -35,9 +35,9 @@ FusionEKF::FusionEKF() {
   // state covariance matrix
   MatrixXd P = MatrixXd(4, 4);
   P << 1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1000, 0,
-            0, 0, 0, 1000;
+       0, 1, 0, 0,
+       0, 0, 1000, 0,
+       0, 0, 0, 1000;
   
   // the initial transition matrix
   MatrixXd F = MatrixXd(4, 4);
@@ -60,8 +60,7 @@ FusionEKF::FusionEKF() {
   VectorXd x = VectorXd(4);
   x << 1, 1, 1, 1;
   
-  ekf_.Init(x, P, F, H_laser_, R_laser_, Q);
-   
+  ekf_.Init(x, P, F, H_laser_, R_laser_, Q);   
 }
 
 FusionEKF::~FusionEKF() {}
@@ -83,10 +82,11 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
       // TODO: Convert radar from polar to cartesian coordinates 
       //         and initialize state.
-      VectorXd polar = tools.Cartesian2Polar(measurement_pack.raw_measurements_);
-      ekf_.x_ << polar[0], 
-                 polar[1], 
-                 polar[2];
+      VectorXd cartesian = tools.Polar2Cartesian(measurement_pack.raw_measurements_);
+      ekf_.x_ << cartesian[0], 
+                 cartesian[1], 
+                 cartesian[2],
+                 cartesian[3];
     }
     else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
       // TODO: Initialize state.
