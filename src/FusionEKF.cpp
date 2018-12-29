@@ -70,16 +70,10 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     cout << "EKF: " << endl;
     if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
       VectorXd cartesian = tools.Polar2Cartesian(measurement_pack.raw_measurements_);
-      ekf_.x_ << cartesian[0],
-                 cartesian[1],
-                 0,
-                 0;
+      ekf_.setInitialState(cartesian);
     }
     else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
-      ekf_.x_ << measurement_pack.raw_measurements_[0],
-                 measurement_pack.raw_measurements_[1],
-                 0,
-                 0;
+      ekf_.setInitialState(measurement_pack.raw_measurements_);
     }
 	previous_timestamp_ = measurement_pack.timestamp_;
     

@@ -42,6 +42,13 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   calculateNewEstimate(y);
 }
 
+void KalmanFilter::setInitialState(const VectorXd &measurement) {
+  x_ << measurement[0],
+        measurement[1],
+        0,
+        0;
+}
+
 void KalmanFilter::calculateNewEstimate(const VectorXd &y) {
   MatrixXd Ht = H_.transpose();
   MatrixXd S = H_ * P_ * Ht + R_;
