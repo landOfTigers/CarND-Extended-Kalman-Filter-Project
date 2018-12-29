@@ -72,6 +72,14 @@ void KalmanFilter::updateQ(const float dt) {
          0, dt_3/2*noise_ay_, 0, dt_2*noise_ay_;
 }
 
+void KalmanFilter::setH_(const MatrixXd &H) {
+  H_ = H;
+}
+
+void KalmanFilter::setR_(const MatrixXd &R) {
+  R_ = R;
+}
+
 void KalmanFilter::calculateNewEstimate(const VectorXd &y) {
   MatrixXd Ht = H_.transpose();
   MatrixXd S = H_ * P_ * Ht + R_;

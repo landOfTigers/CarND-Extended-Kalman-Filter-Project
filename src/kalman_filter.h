@@ -6,11 +6,21 @@
 
 class KalmanFilter {
  private:
+  // state covariance matrix
+  Eigen::MatrixXd P_;
+  // state transition matrix
+  Eigen::MatrixXd F_;
+  // process covariance matrix
+  Eigen::MatrixXd Q_;
+  // measurement matrix
+  Eigen::MatrixXd H_;
+  // measurement covariance matrix
+  Eigen::MatrixXd R_;
   Tools tools;
-  void calculateNewEstimate(const Eigen::VectorXd &y); 
   // acceleration noise components
   const float noise_ax_ = 9.0;
   const float noise_ay_ = 9.0;
+  void calculateNewEstimate(const Eigen::VectorXd &y); 
  public:
   KalmanFilter();
   virtual ~KalmanFilter();
@@ -34,8 +44,12 @@ class KalmanFilter {
   
   void updateQ(const float dt);
   
-  void printState();
+  void setH_(const Eigen::MatrixXd &H);
   
+  void setR_(const Eigen::MatrixXd &R);
+  
+  void printState();
+
   /**
    * Prediction Predicts the state and the state covariance
    * using the process model
@@ -53,24 +67,9 @@ class KalmanFilter {
    * @param z The measurement at k+1
    */
   void UpdateEKF(const Eigen::VectorXd &z);
-
+  
   // state vector
   Eigen::VectorXd x_;
-
-  // state covariance matrix
-  Eigen::MatrixXd P_;
-
-  // state transition matrix
-  Eigen::MatrixXd F_;
-
-  // process covariance matrix
-  Eigen::MatrixXd Q_;
-
-  // measurement matrix
-  Eigen::MatrixXd H_;
-
-  // measurement covariance matrix
-  Eigen::MatrixXd R_;
 };
 
 #endif // KALMAN_FILTER_H_
