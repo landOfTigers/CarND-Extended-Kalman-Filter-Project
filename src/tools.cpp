@@ -80,9 +80,8 @@ VectorXd Tools::Polar2Cartesian(const VectorXd& measurement) {
   float rho = measurement(0);
   float phi = measurement(1);
   
-  VectorXd cartesian(4);  
-  // velocity is set to zero because there's not enough information
-  cartesian << rho*cos(phi), rho*sin(phi), 0, 0;
+  VectorXd cartesian(2);
+  cartesian << rho*cos(phi), rho*sin(phi);
 
   return cartesian;
 }
